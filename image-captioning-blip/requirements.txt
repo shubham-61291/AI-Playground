@@ -1,0 +1,6 @@
+transformers==4.30.2
+torch
+gradio
+requests
+pillow
+beautifulsoup4
