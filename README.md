@@ -42,6 +42,8 @@ Upload meeting recordings and get accurate transcripts using **OpenAI Whisper-sm
 ### 4. 📊 Supernova Financial RAG Agent
 A Retrieval-Augmented Generation (RAG) agent for financial Q&A, powered by **Mistral-7B**.  
 Includes **evaluation metrics** for model accuracy.  
+Demo VIDEO :- https://www.youtube.com/watch?v=Ms8OtgUXTDA&list=PLlRRgrbOaGcYU__fUcQFO1bBILOkAhCZE&index=4
+
 ![RAG Agent Demo](Supernova%20Financial%20RAG%20Agent/rag_agent_demo.png)  
 ![RAG Evaluation](Supernova%20Financial%20RAG%20Agent/rag_agent_evaluation.png)  
 
