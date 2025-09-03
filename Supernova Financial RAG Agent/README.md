@@ -47,7 +47,7 @@ python rag_agent.py
 This will launch a Gradio web interface where you can chat with the RAG-powered financial assistant.
 
 🖼 Demo
-## 🖼 Demo  
+## 🖼 Demo VIDEO :- https://www.youtube.com/watch?v=Ms8OtgUXTDA&list=PLlRRgrbOaGcYU__fUcQFO1bBILOkAhCZE&index=4
 
 ### 🔹 Chatbot in Action  
 ![Chatbot Demo](rag_agent_demo.png)  
