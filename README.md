@@ -33,6 +33,7 @@ DEMO VIDEO :- https://www.youtube.com/watch?v=VHFnyVZX7z4&list=PLlRRgrbOaGcYU__f
 
 ### 3. 📝 Meeting Transcriber – Whisper
 Upload meeting recordings and get accurate transcripts using **OpenAI Whisper-small**.  
+DEMO VIDEO :- https://www.youtube.com/watch?v=sdGgobRCUFw&list=PLlRRgrbOaGcYU__fUcQFO1bBILOkAhCZE&index=3
 ![Meeting Transcriber Demo](meeting-transcriber-whisper/AI_based_meeting_transcriber.png)  
 
 🔗 [Go to Project](meeting-transcriber-whisper)  
