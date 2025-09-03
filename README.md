@@ -21,7 +21,8 @@ Demo VIDEO :- https://www.youtube.com/watch?v=3bno8Z1ad38&list=PLlRRgrbOaGcYU__f
 
 ### 2. 🖼️ Image Captioning – BLIP
 Generate captions for images using Salesforce’s BLIP model.  
-Supports both **image upload** and **website-based captioning**.  
+Supports both **image upload** and **website-based captioning**. 
+DEMO VIDEO :- https://www.youtube.com/watch?v=VHFnyVZX7z4&list=PLlRRgrbOaGcYU__fUcQFO1bBILOkAhCZE&index=2
 ![Image Captioning Demo](image-captioning-blip/image_captioning_image_1.png)  
 ![Image Captioning Demo](image-captioning-blip/image_captioning_image_2.png)  
 ![Web Captioning Demo](image-captioning-blip/web_based_image_captioning.png)  
