@@ -61,6 +61,8 @@ Gradio
 
 Demo
 
+DEMO VIDEO :- https://www.youtube.com/watch?v=sdGgobRCUFw&list=PLlRRgrbOaGcYU__fUcQFO1bBILOkAhCZE&index=3
+
 ## Demo  
 
 ![Demo – Meeting Transcriber](AI_based_meeting_transcriber.png)  
