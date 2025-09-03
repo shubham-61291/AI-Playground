@@ -12,6 +12,7 @@ Each project demonstrates a unique capability of modern AI models – from chatb
 
 ### 1. 💬 Chatbot – BlenderBot 400M
 A simple chatbot built on Hugging Face’s BlenderBot model.  
+Demo VIDEO :- https://www.youtube.com/watch?v=3bno8Z1ad38&list=PLlRRgrbOaGcYU__fUcQFO1bBILOkAhCZE
 ![Chatbot Demo](chatbot-blenderbot-400M/basic_AI_using_huggingface_image.png)  
 
 🔗 [Go to Project](chatbot-blenderbot-400M)  
