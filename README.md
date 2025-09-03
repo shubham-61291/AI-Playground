@@ -54,6 +54,7 @@ Demo VIDEO :- https://www.youtube.com/watch?v=Ms8OtgUXTDA&list=PLlRRgrbOaGcYU__f
 
 ### 5. 🎙️ Voice Assistant – Watsonx
 A personal assistant that listens and speaks using **Watson STT + TTS** with **GPT intelligence**.  
+DEMO VIDEO :- https://www.youtube.com/watch?v=-BZwDb9a9pk&list=PLlRRgrbOaGcYU__fUcQFO1bBILOkAhCZE&index=5
 ![Voice Assistant Demo](voice-assistant-watsonx/voice_assistant.png)  
 
 🔗 [Go to Project](voice-assistant-watsonx)  
