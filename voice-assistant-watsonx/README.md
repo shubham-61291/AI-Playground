@@ -23,6 +23,7 @@ This project allows real-time interaction using **speech-to-text** and **text-to
 ---
 
 ## 📸 Demo
+DEMO VIDEO :- https://www.youtube.com/watch?v=-BZwDb9a9pk&list=PLlRRgrbOaGcYU__fUcQFO1bBILOkAhCZE&index=5
 ![Voice Assistant Demo](voice_assistant.png)  
 
 ---
