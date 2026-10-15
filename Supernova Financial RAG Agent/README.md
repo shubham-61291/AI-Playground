@@ -1,75 +1,106 @@
-Supernova Financial RAG Agent
-📖 Overview
+# Supernova Financial RAG Agent
 
-The Supernova Financial RAG Agent is an advanced Retrieval-Augmented Generation (RAG) chatbot built using Mistral-7B. It provides reliable, policy-compliant financial answers by grounding responses in structured financial rules. The system ensures transparency, compliance, and efficiency in corporate operations by combining retrieval-based context injection with LLM reasoning.
+A proof-of-concept Retrieval-Augmented Generation (RAG) workflow that accepts one uploaded PDF, extracts and splits its text, indexes the chunks locally with FAISS, and sends the top retrieved chunks to a Hugging Face-hosted Mistral instruction model for an answer.
 
-🚀 Key Features
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 
-✅ RAG-powered chatbot: Ensures answers are grounded in financial rules and policies.
+## What is implemented
 
-✅ Policy compliance: Adheres to IFRS/GAAP accounting standards.
+- **Document input:** one PDF is selected through `google.colab.files.upload()`.
+- **Parsing:** LangChain's `PyPDFLoader` reads the PDF.
+- **Chunking:** `RecursiveCharacterTextSplitter` uses a chunk size of 500 and overlap of 50.
+- **Embeddings:** `sentence-transformers/all-MiniLM-L6-v2` is loaded through `HuggingFaceEmbeddings`.
+- **Vector search:** FAISS indexes the extracted chunks in process; the retriever requests `k=3` chunks.
+- **Generation:** `mistralai/Mistral-7B-Instruct-v0.1` is loaded using Transformers with `device_map="auto"` and `torch_dtype="auto"`.
+- **QA chain:** `RetrievalQA.from_chain_type(..., chain_type="stuff")` places retrieved text into the generation context.
+- **Interface:** a Gradio `ChatInterface` is launched with example questions.
 
-✅ Context-aware responses: Pulls information dynamically from provided documents.
+## Request flow
 
-✅ Interactive interface: Built using Gradio for ease of use.
+1. Upload a PDF in the notebook environment.
+2. Parse the PDF and split its pages into overlapping chunks.
+3. Embed all chunks and build an in-memory FAISS index.
+4. For a question, retrieve up to three chunks.
+5. Pass retrieved content to the language model, then return the generated response through Gradio.
 
-✅ Evaluation pipeline: Automated scoring of chatbot responses based on accuracy, coverage, and clarity.
+The script also executes one example query before the interface is launched. The index is built from the selected PDF for that run; there is no persistent vector-store directory or multi-document registry in the checked-in implementation.
 
-🛠 Tech Stack
+## Repository files
 
-LLM: Mistral-7B (via Hugging Face)
+- `rag_agent.py` — notebook-exported implementation and Gradio UI.
+- `requirements.txt` — a short dependency list.
+- `rag_agent_demo.png` — saved UI/demo screenshot.
+- `rag_agent_evaluation.png` — stored evaluation-related visual.
+- `README.md` — project documentation.
+- `LICENSE` — full MIT License.
 
-Framework: LangChain
+## Environment and dependencies
 
-Libraries: PyTorch, Transformers
+The tracked `requirements.txt` lists `torch`, `transformers`, `faiss-cpu`, `langchain`, `langchain-community`, and `gradio`. The source additionally uses packages/APIs associated with `sentence-transformers`, `accelerate`, and PDF parsing (`pypdf`); these are not explicitly present in the checked-in requirements file. A fresh installation may therefore need dependency-manifest reconciliation, and current LangChain imports may need version pinning.
 
-Interface: Gradio
+The 7B model can require substantial RAM/VRAM and download time. Hardware requirements depend on model placement and precision; `device_map="auto"` is not a guarantee that any machine can load the model. Hugging Face access may require account access/credentials depending on current model-hosting policy. Supply credentials securely; the placeholder token value in the script is not a working secret.
 
-Other Tools: FAISS / vector embeddings for retrieval
+## Running it
 
-📂 Project Structure
-Supernova-Financial-RAG-Agent/
-│── rag_agent.py                 # Core RAG chatbot implementation
-│── rag_agent_demo.png           # Demo screenshot
-│── rag_agent_evaluation.png     # Evaluation screenshot
-│── requirements.txt             # Python dependencies
-│── README.md                    # Documentation
+**Current source status:** `rag_agent.py` contains a notebook magic command (`!pip install`) and imports `google.colab.files`. It is not a plain Python script that can be executed unchanged with `python rag_agent.py` in a normal local environment.
 
-⚡ Installation
-git clone https://github.com/shubham-61291/AI-Playground.git
-cd "Supernova Financial RAG Agent"
-pip install -r requirements.txt
+To use it as intended, run/refactor the notebook code in a compatible Colab environment, or create a local application version that:
 
-▶️ Usage
-python rag_agent.py
+1. moves package installation out of Python source;
+2. replaces `google.colab.files.upload()` with a Gradio file input or explicit file path;
+3. reconciles and pins dependencies;
+4. loads the selected PDF before constructing the vector store;
+5. starts the interface after a single, clear application initialization path.
 
+If using Gradio's `share=True`, the generated app may be accessible outside your machine. Do not upload confidential financial statements or internal company documents to a public demo.
 
-This will launch a Gradio web interface where you can chat with the RAG-powered financial assistant.
+## Evaluation and grounding: important distinction
 
-🖼 Demo
-## 🖼 Demo VIDEO :- https://www.youtube.com/watch?v=Ms8OtgUXTDA&list=PLlRRgrbOaGcYU__fUcQFO1bBILOkAhCZE&index=4
+The repository includes an image named `rag_agent_evaluation.png`, and the README historically mentions accuracy, coverage, and clarity metrics. The checked-in Python source, however, does **not** implement an automated evaluation harness, dataset, scoring function, or repeatable benchmark. It runs a demonstration question and cleans up the generated text. The screenshot should be treated as a stored artifact, not a reproducible metric claim.
 
-### 🔹 Chatbot in Action  
-![Chatbot Demo](rag_agent_demo.png)  
+The code does not add explicit source citations to answers, does not perform an independent claim-verification stage, and does not prove IFRS/GAAP compliance. Retrieval can miss relevant PDF passages, PDFs may extract poorly, and generated responses may contain unsupported statements. This is a learning/demo project, not financial, accounting, legal, or compliance advice.
 
-### 🔹 Evaluation Metrics  
-![Evaluation Demo](rag_agent_evaluation.png)  
+## Recommended production hardening
 
+- Add a versioned dataset with expected answers and a reproducible evaluation script.
+- Return page/source metadata and require answer-level citations.
+- Add retrieval relevance checks, refusal behavior for insufficient evidence, and claim verification.
+- Pin compatible package versions and include all direct dependencies.
+- Add file-size/page limits, exception handling, and privacy controls.
+- Keep model credentials outside source control and avoid exposing confidential PDFs through public share links.
 
-🔮 Future Enhancements
+## Demo assets
 
-🔹 Add support for multi-document retrieval
+![RAG agent demo](rag_agent_demo.png)
 
-🔹 Fine-tune with domain-specific financial datasets
+![Evaluation-related artifact](rag_agent_evaluation.png)
 
-🔹 Integrate speech-to-text pipeline for voice-based queries
+[Video demo listed in the repository](https://www.youtube.com/watch?v=Ms8OtgUXTDA&list=PLlRRgrbOaGcYU__fUcQFO1bBILOkAhCZE&index=4)
 
-🔹 Add explainability layer for transparent decision-making
+## License
 
-👨‍💻 Author
+Licensed under the MIT License. See [`./LICENSE`](./LICENSE) for the standalone copy.
 
-Shubham Singh
-
-License
-
+```text
 MIT License
+
+Copyright (c) 2026 Shubham Kumar Singh
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
